@@ -53,7 +53,7 @@ async function fetchQuote() {
 
 
 const apiUrl = "https://dummyjson.com/quotes/random"; // This API includes authors
-
+/*
 async function fetchQuote() {
     try {
         console.log("Fetching new quote...");
@@ -66,5 +66,57 @@ async function fetchQuote() {
         console.error("Error fetching quote:", error);
         quoteText.textContent = "Oops! Something went wrong.";
         quoteAuthor.textContent = "";
+    }
+}
+*/
+
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+// Check if dark mode was previously enabled
+if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark-mode");
+}
+
+darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    // Save dark mode preference in localStorage
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        localStorage.setItem("darkMode", "disabled");
+    }
+});
+
+
+const copyBtn = document.getElementById("copy-quote");
+
+copyBtn.addEventListener("click", () => {
+    const quote = quoteText.textContent + " " + quoteAuthor.textContent;
+    navigator.clipboard.writeText(quote).then(() => {
+        alert("Quote copied to clipboard! ✅");
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+});
+
+
+async function fetchQuote() {
+    document.getElementById("loading").style.display = "block";
+    quoteText.textContent = "";
+    quoteAuthor.textContent = "";
+
+    try {
+        const response = await fetch("https://dummyjson.com/quotes/random");
+        const data = await response.json();
+
+        quoteText.textContent = `"${data.quote}"`;
+        quoteAuthor.textContent = `- ${data.author}`;
+    } catch (error) {
+        console.error("Error fetching quote:", error);
+        quoteText.textContent = "Oops! Something went wrong.";
+        quoteAuthor.textContent = "";
+    } finally {
+        document.getElementById("loading").style.display = "none";
     }
 }

@@ -38,3 +38,16 @@ button {
 button:hover {
     background: #0250a3;
 }
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .container {
+    background: #1e1e1e;
+    color: white;
+}
+
+.dark-mode button {
+    background: #444;
+}
