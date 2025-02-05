@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-    color: #333;
+    color: #393939;
 }
 
 .quote-box {
@@ -36,5 +36,5 @@ button {
 }
 
 button:hover {
-    background: #0056b3;
+    background: #0250a3;
 }
